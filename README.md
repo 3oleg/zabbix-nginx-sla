@@ -2,10 +2,11 @@
 то вы можете воспользоваться этим шаблоном мониторинга.
 
 Шаблон использует zabbix sender, он должен быть установлен. Так же возможно отсутствует библиотека python3-pycurl
-`apt install python3-pycurl zabbix-sender`
+
 
 Installations:
 1. Make sure that you have a SLA module in nginx `nginx -V 2>&1|grep -o 'sla'`
+1. `apt install python3-pycurl zabbix-sender`
 1. Put `nginx-zabbix-sla.py` to /opt/zabbix/
 1. Put `sla.conf` to /etc/nginx/conf.d/
 1. Put `zabbix-agent-nginxsla.conf` to /etc/zabbix/zabbix_agentd.d/
@@ -24,6 +25,9 @@ but you will see additional information.
 1. сокращаем десятки, а может и сотни запросов к nginx/sla_status до одного (если бы это были обычные или активные проверки zabbix)
 1. автоматически обнаруживаем апстримы и начинаем их мониторить
 1. получаем все необходимые данные за один вызов
+
+Можно мониторить любой другой пареметр вывода nginx/sla_status: просто добавляем его в ключ slaupstreams и создаем дополнительный Item prototype копированием имеющегося.
+Тут нужно обратить внимание, что в названии апстрима символы `/` и `:` заменяются `-`, а остальные не [^A-Za-z0-9-\._] удаляются. т.к. заббикс не разрешает использовать их в назвачиях ключей
 
 Ссылки по теме: 
 
